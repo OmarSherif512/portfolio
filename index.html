@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Omar — Roblox UI/UX Developer</title>
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Omar — Roblox UI/UX Developer" />
+<meta property="og:description" content="I script whole games, not just one layer of them. Core systems, gameplay, and UI." />
+<meta property="og:image" content="https://api.microlink.io/?url=https://omarsherif512.github.io/Portfolio/&screenshot=true&meta=false&embed=screenshot.url" />
+<meta property="og:url" content="https://omarsherif512.github.io/Portfolio/" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Omar — Roblox UI/UX Developer" />
+<meta name="twitter:description" content="I script whole games, not just one layer of them. Core systems, gameplay, and UI." />
+<meta name="twitter:image" content="https://api.microlink.io/?url=https://omarsherif512.github.io/Portfolio/&screenshot=true&meta=false&embed=screenshot.url" />
+
+<meta name="theme-color" content="#FFD166" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red: #E63946;
+    --blue: #4CC9F0;
+    --green: #56CFE1;
+    --yellow: #FFD166;
+    --purple: #9B5DE5;
+    --white: #FAFAFA;
+    --dark: #1A1A2E;
+    --dark2: #16213E;
+    --dark3: #0F3460;
+    --card-bg: #1E2A4A;
+    --text: #F0F0F0;
+    --text-muted: #9BAFC8;
+    --pixel: 4px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background-color: var(--dark);
+    color: var(--text);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  .cursor {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    background: var(--yellow);
+    border: 3px solid var(--dark);
+    border-radius: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, background 0.2s;
+    image-rendering: pixelated;
+  }
+
+  .cursor.click { transform: translate(-50%, -50%) scale(0.7); background: var(--red); }
+
+  .pixel-border {
+    border: 4px solid var(--text);
+    box-shadow: 4px 4px 0 var(--dark3), 8px 8px 0 rgba(255,255,255,0.05);
+  }
+
+  .pixel-border-yellow {
+    border: 4px solid var(--yellow);
+    box-shadow: 4px 4px 0 #a07800;
+  }
+
+  .pixel-border-blue {
+    border: 4px solid var(--blue);
+    box-shadow: 4px 4px 0 #1a7fa0;
+  }
+
+  .pixel-border-purple {
+    border: 4px solid var(--purple);
+    box-shadow: 4px 4px 0 #5b2aa0;
+  }
+
+  .pixel-border-red {
+    border: 4px solid var(--red);
+    box-shadow: 4px 4px 0 #880020;
+  }
+
+  .pixel-btn {
+    display: inline-block;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    padding: 12px 28px;
+    border: 4px solid var(--dark);
+    cursor: none;
+    text-decoration: none;
+    transition: transform 0.1s, box-shadow 0.1s;
+    position: relative;
+    top: 0;
+  }
+
+  .pixel-btn:active, .pixel-btn:hover {
+    transform: translate(3px, 3px);
+  }
+
+  .pixel-btn-yellow {
+    background: var(--yellow);
+    color: var(--dark);
+    box-shadow: 4px 4px 0 var(--dark);
+  }
+
+  .pixel-btn-yellow:hover { box-shadow: 1px 1px 0 var(--dark); }
+
+  .pixel-btn-blue {
+    background: var(--blue);
+    color: var(--dark);
+    box-shadow: 4px 4px 0 var(--dark);
+  }
+
+  .pixel-btn-blue:hover { box-shadow: 1px 1px 0 var(--dark); }
+
+  .pixel-btn-outline {
+    background: transparent;
+    color: var(--text);
+    border-color: var(--text);
+    box-shadow: 4px 4px 0 rgba(255,255,255,0.2);
+  }
+
+  .pixel-btn-outline:hover { box-shadow: 1px 1px 0 rgba(255,255,255,0.2); }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: var(--dark2);
+    border-bottom: 4px solid var(--yellow);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .nav-logo {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.6rem;
+    color: var(--yellow);
+    text-shadow: 2px 2px 0 var(--dark3);
+    text-decoration: none;
+  }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+
+  .nav-links a {
+    font-family: 'Fredoka One', cursive;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    transition: color 0.15s;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--yellow);
+    transform: scaleX(0);
+    transition: transform 0.15s;
+  }
+
+  .nav-links a:hover { color: var(--yellow); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    padding-top: 64px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background: var(--dark);
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(76,201,240,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(76,201,240,0.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    padding: 6px 16px;
+    background: var(--purple);
+    color: var(--white);
+    border: 3px solid var(--dark);
+    box-shadow: 3px 3px 0 var(--dark);
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+  }
+
+  .hero-name {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(3rem, 6vw, 5rem);
+    line-height: 1;
+    color: var(--white);
+    text-shadow: 4px 4px 0 var(--dark3);
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-name span { color: var(--yellow); }
+
+  .hero-sub {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.4rem;
+    color: var(--blue);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-desc {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    max-width: 440px;
+  }
+
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .hero-avatar-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .avatar-box {
+    width: 280px;
+    height: 280px;
+    background: var(--card-bg);
+    border: 6px solid var(--yellow);
+    box-shadow: 8px 8px 0 var(--dark3), 0 0 60px rgba(255,209,102,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    animation: floatAvatar 3s ease-in-out infinite;
+  }
+
+  @keyframes floatAvatar {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  .avatar-inner {
+    font-size: 8rem;
+    user-select: none;
+    filter: drop-shadow(0 4px 0 rgba(0,0,0,0.5));
+  }
+
+  .avatar-badge {
+    position: absolute;
+    bottom: -18px;
+    right: -18px;
+    background: var(--green);
+    border: 4px solid var(--dark);
+    padding: 6px 14px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.85rem;
+    color: var(--dark);
+    box-shadow: 3px 3px 0 var(--dark);
+  }
+
+  /* FLOATING BLOCKS */
+  .float-block {
+    position: absolute;
+    border: 3px solid;
+    animation: spin3d 8s linear infinite;
+    opacity: 0.3;
+  }
+
+  @keyframes spin3d {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* SECTION COMMONS */
+  section { padding: 6rem 2rem; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+
+  .section-label {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-label::before, .section-label::after {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: var(--yellow);
+  }
+
+  .section-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 0.5rem;
+    text-shadow: 3px 3px 0 var(--dark3);
+  }
+
+  .section-sub {
+    color: var(--text-muted);
+    font-size: 1rem;
+    margin-bottom: 3.5rem;
+    max-width: 500px;
+  }
+
+  /* SKILLS */
+  #skills { background: var(--dark2); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .skill-card {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    transition: transform 0.15s;
+  }
+
+  .skill-card:hover { transform: translate(-3px, -3px); }
+
+  .skill-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .skill-name {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.1rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .skill-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .skill-bar-wrap {
+    margin-top: 1rem;
+    background: var(--dark);
+    height: 8px;
+    border: 2px solid var(--dark3);
+  }
+
+  .skill-bar {
+    height: 100%;
+    animation: growBar 1.2s ease-out both;
+  }
+
+  @keyframes growBar {
+    from { width: 0; }
+  }
+
+  /* PROJECTS */
+  #projects { background: var(--dark); }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+
+  .project-card {
+    background: var(--card-bg);
+    overflow: hidden;
+    transition: transform 0.15s;
+    position: relative;
+  }
+
+  .project-card:hover { transform: translate(-4px, -4px); }
+
+  .project-preview {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    overflow: hidden;
+  }
+
+  .project-preview iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+
+  .project-preview-overlay {
+    position: absolute;
+    inset: 0;
+    border: 3px solid rgba(255,255,255,0.04);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .project-body { padding: 1.5rem; }
+
+  .project-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 0.75rem;
+  }
+
+  .tag {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.7rem;
+    padding: 3px 10px;
+    border: 2px solid;
+    letter-spacing: 0.05em;
+  }
+
+  .tag-blue { border-color: var(--blue); color: var(--blue); }
+  .tag-yellow { border-color: var(--yellow); color: var(--yellow); }
+  .tag-purple { border-color: var(--purple); color: var(--purple); }
+  .tag-green { border-color: var(--green); color: var(--green); }
+  .tag-red { border-color: var(--red); color: var(--red); }
+
+  .project-name {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .project-desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+  }
+
+  /* STATS */
+  #stats { background: var(--yellow); padding: 4rem 2rem; }
+  #stats .section-label { color: var(--dark3); }
+  #stats .section-label::before, #stats .section-label::after { background: var(--dark3); }
+  #stats .section-title { color: var(--dark); text-shadow: 3px 3px 0 rgba(0,0,0,0.15); }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .stat-box {
+    background: var(--dark);
+    padding: 1.5rem;
+    text-align: center;
+    border: 4px solid var(--dark);
+    box-shadow: 6px 6px 0 rgba(0,0,0,0.2);
+  }
+
+  .stat-num {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.5rem;
+    color: var(--yellow);
+    display: block;
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+
+  .stat-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* CONTACT */
+  #contact { background: var(--dark2); text-align: center; }
+
+  .contact-body {
+    font-size: 1rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.25rem;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 1rem 1.5rem;
+    background: var(--card-bg);
+    text-decoration: none;
+    color: var(--text);
+    transition: transform 0.12s, box-shadow 0.12s, background 0.15s, border-color 0.12s;
+    border: 3px solid transparent;
+    text-align: left;
+    min-width: 200px;
+  }
+
+  .contact-link:hover { transform: translate(-3px, -3px); }
+
+  .contact-link:hover .contact-link-icon {
+    animation: iconBounce 0.35s ease;
+  }
+
+  @keyframes iconBounce {
+    0%   { transform: scale(1); }
+    40%  { transform: scale(1.35) rotate(-8deg); }
+    70%  { transform: scale(0.9) rotate(4deg); }
+    100% { transform: scale(1) rotate(0deg); }
+  }
+
+  /* per-card accent colors */
+  .contact-link.roblox:hover  { border-color: var(--blue);   box-shadow: 3px 3px 0 var(--blue);   background: rgba(76,201,240,0.07); }
+  .contact-link.discord:hover { border-color: var(--purple); box-shadow: 3px 3px 0 var(--purple); background: rgba(155,93,229,0.07); }
+  .contact-link.devforum:hover{ border-color: var(--green);  box-shadow: 3px 3px 0 var(--green);  background: rgba(86,207,225,0.07); }
+
+  .contact-link.roblox:hover  .contact-link-text { color: var(--blue); }
+  .contact-link.discord:hover .contact-link-text { color: var(--purple); }
+  .contact-link.devforum:hover .contact-link-text { color: var(--green); }
+
+  .contact-link-text { font-weight: 700; font-size: 0.95rem; transition: color 0.15s; }
+  .contact-link-sub  { font-size: 0.8rem; color: var(--text-muted); }
+
+  .contact-link-icon {
+    font-size: 1.5rem;
+    width: 36px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+
+  .form-label {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  .form-input, .form-textarea {
+    background: var(--card-bg);
+    border: 3px solid var(--dark3);
+    color: var(--text);
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    padding: 10px 14px;
+    outline: none;
+    transition: border-color 0.15s;
+    resize: none;
+    cursor: none;
+  }
+
+  .form-input:focus, .form-textarea:focus { border-color: var(--yellow); }
+  .form-textarea { height: 120px; }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark);
+    border-top: 4px solid var(--dark3);
+    padding: 2rem;
+    text-align: center;
+    font-family: 'Fredoka One', cursive;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+  }
+
+  footer span { color: var(--yellow); }
+
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.5s, transform 0.5s;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* PIXEL CORNER DECORATIONS */
+  .corner-deco {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: var(--yellow);
+  }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    .hero-inner { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
+    .hero-desc { margin: 0 auto 2rem; }
+    .hero-ctas { justify-content: center; }
+    .hero-avatar-wrap { order: -1; }
+    .avatar-box { width: 200px; height: 200px; }
+    .avatar-inner { font-size: 5rem; }
+    .contact-links { gap: 0.75rem; }
+    nav { padding: 0 1rem; }
+    .nav-links { gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+
+<nav>
+  <a href="#hero" class="nav-logo">👾 Omar</a>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Hire Me</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-grid"></div>
+
+  <div style="position:absolute;top:90px;left:5%;width:32px;height:32px;border:3px solid var(--blue);opacity:0.25;animation:spin3d 6s linear infinite;"></div>
+  <div style="position:absolute;bottom:120px;right:8%;width:24px;height:24px;background:var(--purple);opacity:0.2;animation:spin3d 4s linear infinite reverse;"></div>
+  <div style="position:absolute;top:40%;left:12%;width:16px;height:16px;background:var(--yellow);opacity:0.18;animation:spin3d 10s linear infinite;"></div>
+
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-tag">🕹️ Professional Roblox Scripter</div>
+      <h1 class="hero-name">Hey, I'm <span>Omar</span></h1>
+      <p class="hero-sub">Core Systems · Gameplay · UI</p>
+      <p class="hero-desc">I script whole games, not just one layer of them. DataStore backend, combat system, shop screen? I do all of it. One person, one price, no handoff problems.</p>
+      <div class="hero-ctas">
+        <a href="#projects" class="pixel-btn pixel-btn-yellow">View My Work</a>
+        <a href="#contact" class="pixel-btn pixel-btn-outline">Contact Me</a>
+      </div>
+    </div>
+    <div class="hero-avatar-wrap">
+      <div class="avatar-box pixel-border-yellow">
+        <div class="avatar-inner">👾</div>
+        <div class="avatar-badge">Open for work!</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-label">Toolkit</div>
+    <h2 class="section-title">What I Do</h2>
+    <p class="section-sub">Everything a game needs. Not just the fun parts.</p>
+
+    <div class="skills-grid">
+      <div class="skill-card pixel-border-blue reveal">
+        <span class="skill-icon">🗄️</span>
+        <div class="skill-name">Core Game Systems</div>
+        <p class="skill-desc">DataStores, currency, leaderboards, player saves. The backend nobody sees but everybody notices when it breaks. I've built enough of these to know exactly where they fail.</p>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar" style="width:93%;background:var(--blue);"></div>
+        </div>
+      </div>
+
+      <div class="skill-card pixel-border-red reveal" style="transition-delay:0.1s">
+        <span class="skill-icon">⚔️</span>
+        <div class="skill-name">Gameplay Scripting</div>
+        <p class="skill-desc">Combat, abilities, NPC AI, hitboxes. I care about how it actually feels to play, not just whether it runs without errors. Responsive on the client, secure on the server.</p>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar" style="width:90%;background:var(--red);"></div>
+        </div>
+      </div>
+
+      <div class="skill-card pixel-border-purple reveal" style="transition-delay:0.2s">
+        <span class="skill-icon">🔗</span>
+        <div class="skill-name">Client-Server Architecture</div>
+        <p class="skill-desc">ByteNet when the game needs fast, low-overhead networking. RemoteEvents when it doesn't. I pick what actually fits the project, not whatever I used last time.</p>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar" style="width:88%;background:var(--purple);"></div>
+        </div>
+      </div>
+
+      <div class="skill-card pixel-border-yellow reveal" style="transition-delay:0.3s">
+        <span class="skill-icon">✨</span>
+        <div class="skill-name">UI Scripting</div>
+        <p class="skill-desc">HUDs, inventories, shops, menus. UI isn't my whole thing but I know how to do it right. Smooth, functional, and won't tank your FPS.</p>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar" style="width:95%;background:var(--yellow);"></div>
+        </div>
+      </div>
+
+      <div class="skill-card pixel-border-blue reveal" style="transition-delay:0.4s">
+        <span class="skill-icon">🧩</span>
+        <div class="skill-name">ModuleScript Architecture</div>
+        <p class="skill-desc">ModuleScripts, OOP, Knit or something custom if the project needs it. I write code someone else can open six months later and actually understand without asking me to explain it.</p>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar" style="width:87%;background:var(--blue);"></div>
+        </div>
+      </div>
+
+      <div class="skill-card pixel-border-yellow reveal" style="transition-delay:0.5s">
+        <span class="skill-icon">⚡</span>
+        <div class="skill-name">Performance Optimization</div>
+        <p class="skill-desc">I profile before I guess. RunService abuse, unnecessary replication, missing object pooling — I find it and fix it. TPS and FPS hold up in production, not just in Studio.</p>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar" style="width:85%;background:var(--green);"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-inner">
+    <div class="section-label">Portfolio</div>
+    <h2 class="section-title">Featured Projects</h2>
+    <p class="section-sub">A few things I've shipped. Systems, gameplay, UI — all in there.</p>
+
+    <div class="projects-grid">
+      <div class="project-card pixel-border-blue reveal">
+        <div class="project-preview">
+          <iframe src="https://www.youtube.com/embed/gEENdiZFfPw" title="3D GUI System" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+          <div class="project-preview-overlay"></div>
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag tag-blue">UI/UX</span>
+            <span class="tag tag-purple">3D</span>
+            <span class="tag tag-yellow">SurfaceGui</span>
+          </div>
+          <h3 class="project-name">3D GUI System</h3>
+          <p class="project-desc">Full 3D GUI system built inside Roblox. SurfaceGuis positioned and updated in world space, depth-layered panels, smooth animations. Looks nothing like a standard ScreenGui.</p>
+          <a href="https://youtu.be/gEENdiZFfPw" target="_blank" class="pixel-btn pixel-btn-blue" style="font-size:0.85rem; padding:8px 18px;">Watch Video</a>
+        </div>
+      </div>
+
+      <div class="project-card pixel-border-yellow reveal" style="transition-delay:0.05s">
+        <div class="project-preview">
+          <iframe src="https://www.youtube.com/embed/TBSya1ECVT8" title="UI Animations" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+          <div class="project-preview-overlay"></div>
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag tag-yellow">UI/UX</span>
+            <span class="tag tag-green">Animation</span>
+            <span class="tag tag-blue">Tweening</span>
+          </div>
+          <h3 class="project-name">UI Animations</h3>
+          <p class="project-desc">A collection of smooth UI animation work, including tweened transitions, spring-based motion, and micro-interactions that make menus and HUDs feel alive, not static.
+</p>
+          <a href="https://youtu.be/TBSya1ECVT8" target="_blank" class="pixel-btn pixel-btn-yellow" style="font-size:0.85rem; padding:8px 18px;">Watch Video</a>
+        </div>
+      </div>
+
+      <div class="project-card pixel-border-red reveal" style="transition-delay:0.1s">
+        <div class="project-preview">
+          <iframe src="https://www.youtube.com/embed/oQOAVm6X4PM" title="Combat System" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+          <div class="project-preview-overlay"></div>
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag tag-red">Gameplay</span>
+            <span class="tag tag-yellow">Combat</span>
+            <span class="tag tag-purple">Hitbox</span>
+          </div>
+          <h3 class="project-name">Combat System</h3>
+          <p class="project-desc">Hitbox validation, combos, knockback, block breaking. Server-authoritative so it can't be exploited. Client-side animations keep it feeling snappy. Getting both right at the same time is the hard part.</p>
+          <a href="https://youtu.be/oQOAVm6X4PM" target="_blank" class="pixel-btn pixel-btn-outline" style="font-size:0.85rem; padding:8px 18px; border-color:var(--red); color:var(--red);">Watch Video</a>
+        </div>
+      </div>
+
+      <div class="project-card pixel-border-yellow reveal" style="transition-delay:0.2s">
+        <div class="project-preview">
+          <iframe src="https://www.youtube.com/embed/29APQnPXPHQ" title="2D Stickman Game" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+          <div class="project-preview-overlay"></div>
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag tag-yellow">2D</span>
+            <span class="tag tag-green">Animation</span>
+            <span class="tag tag-blue">Gameplay</span>
+          </div>
+          <h3 class="project-name">2D Stickman Game</h3>
+          <p class="project-desc">Side-scrolling 2D game built in Roblox. Custom stickman rig with frame-by-frame animations, collision logic, and movement that actually feels right in a flat plane.</p>
+          <a href="https://youtu.be/29APQnPXPHQ" target="_blank" class="pixel-btn pixel-btn-yellow" style="font-size:0.85rem; padding:8px 18px;">Watch Video</a>
+        </div>
+      </div>
+
+      <div class="project-card pixel-border-purple reveal" style="transition-delay:0.3s">
+        <div class="project-preview">
+          <iframe src="https://www.youtube.com/embed/NrzA-Yyalp8" title="Party System" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+          <div class="project-preview-overlay"></div>
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag tag-purple">Multiplayer</span>
+            <span class="tag tag-blue">Systems</span>
+            <span class="tag tag-yellow">UI/UX</span>
+          </div>
+          <h3 class="project-name">Party System</h3>
+          <p class="project-desc">Full party system with invite flow, accept/decline UI, member roster, and leader controls. State syncs across all members in real time. Handles edge cases like disconnects and leader reassignment.</p>
+          <a href="https://youtu.be/NrzA-Yyalp8" target="_blank" class="pixel-btn pixel-btn-outline" style="font-size:0.85rem; padding:8px 18px; border-color:var(--purple); color:var(--purple);">Watch Video</a>
+        </div>
+      </div>
+
+      <div class="project-card pixel-border-yellow reveal" style="transition-delay:0.4s">
+        <div class="project-preview">
+          <iframe src="https://www.youtube.com/embed/kyyV_CarHmk" title="Matchmaking System" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+          <div class="project-preview-overlay"></div>
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag tag-yellow">Systems</span>
+            <span class="tag tag-red">Server</span>
+            <span class="tag tag-blue">Networking</span>
+          </div>
+          <h3 class="project-name">Matchmaking System</h3>
+          <p class="project-desc">Queue-based matchmaking that groups players, reserves a server, and teleports the match. Handles timeouts, uneven lobbies, and dropped connections without getting stuck.</p>
+          <a href="https://youtu.be/kyyV_CarHmk" target="_blank" class="pixel-btn pixel-btn-yellow" style="font-size:0.85rem; padding:8px 18px;">Watch Video</a>
+        </div>
+      </div>
+
+      <div class="project-card reveal" style="transition-delay:0.5s; border: 4px solid var(--green); box-shadow: 4px 4px 0 #1a7f7a;">
+        <div class="project-preview">
+          <iframe src="https://www.youtube.com/embed/R28Bp5c6__Q" title="Hatching System" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+          <div class="project-preview-overlay"></div>
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag tag-green">UI/UX</span>
+            <span class="tag tag-yellow">Animation</span>
+            <span class="tag tag-purple">Gameplay</span>
+          </div>
+          <h3 class="project-name">Hatching System</h3>
+          <p class="project-desc">Egg hatching with weighted rarity rolls, hatch animations, and reveal UI. Multiple egg types, luck multipliers, and a clean results screen. Feels satisfying to pull from.</p>
+          <a href="https://youtu.be/R28Bp5c6__Q" target="_blank" class="pixel-btn pixel-btn-outline" style="font-size:0.85rem; padding:8px 18px; border-color:var(--green); color:var(--green);">Watch Video</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="stats">
+  <div class="section-inner">
+    <div class="section-label">By The Numbers</div>
+    <h2 class="section-title" style="color:var(--dark);">Track Record</h2>
+    <div class="stats-grid">
+      <div class="stat-box">
+        <span class="stat-num" id="count-projects">0</span>
+        <span class="stat-label">Projects Delivered</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num" id="count-clients">0</span>
+        <span class="stat-label">Happy Clients</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num" id="count-years">0</span>
+        <span class="stat-label">Years Scripting</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-label">Let's Work</div>
+    <h2 class="section-title">Hire Me</h2>
+    <p class="section-sub">One system or a full game, doesn't matter. Let's talk.</p>
+
+    <p class="contact-body">Small commissions and long-term work both. Tell me what you're building on Discord or DevForum and we'll figure out if I'm a good fit.</p>
+    <div class="contact-links">
+      <a href="https://www.roblox.com/users/search?keyword=omarshrifomar726" class="contact-link roblox" target="_blank">
+        <span class="contact-link-icon">🎮</span>
+        <div>
+          <div class="contact-link-text">Roblox Profile</div>
+          <div class="contact-link-sub">@omarshrifomar726</div>
+        </div>
+      </a>
+      <a href="https://discord.com/users/aliot2" class="contact-link discord" target="_blank">
+        <span class="contact-link-icon">💬</span>
+        <div>
+          <div class="contact-link-text">Discord</div>
+          <div class="contact-link-sub">aliot2</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Built by <span>Omar</span> · Roblox Scripter &nbsp;·&nbsp; <span>Open for commissions</span>
+</footer>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  let mx = -100, my = -100;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX;
+    my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  document.addEventListener('mousedown', () => cursor.classList.add('click'));
+  document.addEventListener('mouseup', () => cursor.classList.remove('click'));
+
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  function animateCount(el, target, suffix = '') {
+    let start = 0;
+    const duration = 1800;
+    const step = timestamp => {
+      if (!start) start = timestamp;
+      const progress = Math.min((timestamp - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(ease * target) + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  const statsSection = document.getElementById('stats');
+  let counted = false;
+  const statsObserver = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting && !counted) {
+      counted = true;
+      animateCount(document.getElementById('count-projects'), 30, '+');
+      animateCount(document.getElementById('count-clients'), 25, '+');
+      animateCount(document.getElementById('count-visits'), 2, 'M+');
+      animateCount(document.getElementById('count-years'), 4, '+');
+    }
+  }, { threshold: 0.3 });
+  statsObserver.observe(statsSection);
+</script>
+</body>
+</html>
